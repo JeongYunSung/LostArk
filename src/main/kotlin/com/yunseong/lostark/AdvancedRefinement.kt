@@ -98,13 +98,13 @@ sealed class AdvancedRefinement {
                                 it.key.price * it.value
                         }.sum()
                         
-                        val normalPrice = basePrice * (1 - FREE_RATE) + recipe.requiredAdditionalMaterialsTable.filter {
+                        val normalPrice = basePrice * (1 - FREE_RATE) + recipe.requiredAdditionalMaterialsTable().filter {
                                 it.key in normalType.materials
                         }.map {
                                 it.key.price * it.value
                         }.sum()
                         
-                        val bonusPrice = basePrice + recipe.requiredAdditionalMaterialsTable.filter {
+                        val bonusPrice = basePrice + recipe.requiredAdditionalMaterialsTable().filter {
                                 it.key in bonusType.materials
                         }.map {
                                 it.key.price * it.value

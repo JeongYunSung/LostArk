@@ -3,14 +3,18 @@ package com.yunseong.lostark
 import com.yunseong.lostark.Level.*
 import com.yunseong.lostark.Materials.*
 
-sealed class AdvancedRefinementRecipe(level: Level, private val filterList: List<Materials> = emptyList()) {
+sealed class AdvancedRefinementRecipe(val level: Level, private val filterList: List<Materials> = emptyList()) {
         fun requiredMaterialsTable(): Map<Materials, Int> {
                 return internalRequiredMaterialsTable.filterKeys { !filterList.contains(it) }
+        }
+
+        fun requiredAdditionalMaterialsTable(): Map<Materials, Int> {
+                return internalRequiredAdditionalMaterialsTable.filterKeys { !filterList.contains(it) }
         }
         
         abstract val internalRequiredMaterialsTable: Map<Materials, Int>
         
-        abstract val requiredAdditionalMaterialsTable: Map<Materials, Int>
+        abstract val internalRequiredAdditionalMaterialsTable: Map<Materials, Int>
 }
 
 class Tier3Weapon(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
@@ -22,16 +26,33 @@ class Tier3Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
                         명예의_파편 to 9000,
                         골드 to 1125
                 )
+                L20 -> mapOf(
+                        정제된_파괴강석 to 1600,
+                        찬란한_명예의_돌파석 to 36,
+                        최상급_오레하_융화제 to 33,
+                        명예의_파편 to 17000,
+                        골드 to 2500
+                )
                 
                 else -> mapOf()
         }
         
-        override val requiredAdditionalMaterialsTable = mapOf(
-                태양의_축복 to 24,
-                태양의_은총 to 12,
-                태양의_가호 to 4,
-                장인의_야금술1 to 1
-        )
+        override val internalRequiredAdditionalMaterialsTable = when(level) {
+                L10 -> mapOf(
+                        태양의_축복 to 24,
+                        태양의_은총 to 12,
+                        태양의_가호 to 4,
+                        장인의_야금술1 to 1
+                )
+                L20 -> mapOf(
+                        태양의_축복 to 36,
+                        태양의_은총 to 18,
+                        태양의_가호 to 6,
+                        장인의_야금술2 to 1
+                )
+
+                else -> mapOf()
+        }
 }
 
 class Tier3Armor(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
@@ -43,15 +64,32 @@ class Tier3Armor(level: Level,  filterList: List<Materials> = emptyList()): Adva
                         명예의_파편 to 5500,
                         골드 to 950
                 )
+                L20 -> mapOf(
+                        정제된_수호강석 to 1300,
+                        찬란한_명예의_돌파석 to 28,
+                        최상급_오레하_융화제 to 20,
+                        명예의_파편 to 11000,
+                        골드 to 1800
+                )
                 else -> mapOf()
         }
-        
-        override val requiredAdditionalMaterialsTable = mapOf(
-                태양의_축복 to 24,
-                태양의_은총 to 12,
-                태양의_가호 to 4,
-                장인의_재봉술1 to 1
-        )
+
+        override val internalRequiredAdditionalMaterialsTable = when(level) {
+                L10 -> mapOf(
+                        태양의_축복 to 24,
+                        태양의_은총 to 12,
+                        태양의_가호 to 4,
+                        장인의_재봉술1 to 1
+                )
+                L20 -> mapOf(
+                        태양의_축복 to 36,
+                        태양의_은총 to 18,
+                        태양의_가호 to 6,
+                        장인의_재봉술2 to 1
+                )
+
+                else -> mapOf()
+        }
 }
 
 class Tier4Weapon(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
@@ -63,13 +101,28 @@ class Tier4Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
                         운명의_파편 to 5000,
                         골드 to 1125
                 )
+                L20 -> mapOf(
+                        운명의_파괴석 to 1100,
+                        운명의_돌파석 to 22,
+                        아비도스_융화_재료 to 27,
+                        운명의_파편 to 10000,
+                        골드 to 2500
+                )
                 else -> mapOf()
         }
-        
-        override val requiredAdditionalMaterialsTable = mapOf(
-                용암의_숨결 to 12,
-                장인의_야금술1 to 1
-        )
+
+        override val internalRequiredAdditionalMaterialsTable = when(level) {
+                L10 -> mapOf(
+                        용암의_숨결 to 12,
+                        장인의_야금술1 to 1
+                )
+                L20 -> mapOf(
+                        용암의_숨결 to 18,
+                        장인의_야금술2 to 1
+                )
+
+                else -> mapOf()
+        }
 }
 
 class Tier4Armor(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
@@ -81,11 +134,26 @@ class Tier4Armor(level: Level,  filterList: List<Materials> = emptyList()): Adva
                         운명의_파편 to 3000,
                         골드 to 950
                 )
+                L20 -> mapOf(
+                        운명의_수호석 to 900,
+                        운명의_돌파석 to 16,
+                        아비도스_융화_재료 to 16,
+                        운명의_파편 to 6000,
+                        골드 to 1800
+                )
                 else -> mapOf()
         }
-        
-        override val requiredAdditionalMaterialsTable = mapOf(
-                빙하의_숨결 to 12,
-                장인의_재봉술1 to 1
-        )
+
+        override val internalRequiredAdditionalMaterialsTable = when(level) {
+                L10 -> mapOf(
+                        빙하의_숨결 to 12,
+                        장인의_재봉술1 to 1
+                )
+                L20 -> mapOf(
+                        빙하의_숨결 to 18,
+                        장인의_재봉술2 to 1
+                )
+
+                else -> mapOf()
+        }
 }
