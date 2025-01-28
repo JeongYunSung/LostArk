@@ -79,7 +79,7 @@ sealed class AdvancedRefinement {
 
         return when (level) {
             L10, L20 -> 테메르의정[base] * 0.35 + 쿠훔바르의모루[base] * 0.15 + 겔라르의칼[base] * 0.35 + 갈라투르의망치[base] * 0.15
-            else -> 테메르의정[base] * 0.125 + 쿠훔바르의모루[base] * 0.25 + 겔라르의칼[base] * 0.125 + 갈라투르의망치[base] * 0.25 + 나베르의송곳[base] * 0.125 + 에베르의끌[base] * 0.125
+            else -> 테메르의정[base] * 0.25 + 쿠훔바르의모루[base] * 0.125 + 겔라르의칼[base] * 0.25 + 갈라투르의망치[base] * 0.125 + 나베르의송곳[base] * 0.125 + 에베르의끌[base] * 0.125
         }
     }
 
