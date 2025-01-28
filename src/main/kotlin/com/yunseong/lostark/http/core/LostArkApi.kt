@@ -1,10 +1,9 @@
 package com.yunseong.lostark.http.core
 
 import com.yunseong.lostark.http.vo.MarketItemDetail
+import com.yunseong.lostark.http.vo.MarketItems
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface LostArkApi {
 
@@ -13,4 +12,10 @@ interface LostArkApi {
         @Header("Authorization") authorization: String,
         @Path("itemId") itemId: Int
     ): Call<List<MarketItemDetail.Response>>
+
+    @POST("markets/items")
+    fun itemList(
+        @Header("Authorization") authorization: String,
+        @Body request: MarketItems.Request
+    ): Call<MarketItems.Response>
 }
