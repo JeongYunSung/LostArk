@@ -28,6 +28,7 @@ import com.yunseong.lostark.vo.Materials.태양의_가호
 import com.yunseong.lostark.vo.Materials.태양의_은총
 import com.yunseong.lostark.vo.Materials.태양의_축복
 import com.yunseong.lostark.refinement.advanced.vo.Level
+import kotlin.math.ceil
 
 sealed class AdvancedRefinement {
 
@@ -123,6 +124,35 @@ sealed class AdvancedRefinement {
             }.sum()
 
             return normalPrice * (1 - BONUS_RATE) + bonusPrice * BONUS_RATE
+        }
+
+        fun getExpectedMaterials(
+            recipe: AdvancedRefinementRecipe,
+            tryCnt: Double,
+            normalType: Type,
+            bonusType: Type
+        ): Map<Materials, Int> {
+            val materials = mutableMapOf<Materials, Double>()
+
+            recipe.notFilteredRequiredMaterialsTable.map {
+                it.key to (it.value * tryCnt * ((1 - BONUS_RATE) * (1 - FREE_RATE) + BONUS_RATE)).toInt()
+            }.forEach {
+                materials[it.first] = (materials[it.first] ?: 0.0) + it.second
+            }
+
+            recipe.notFilteredRequiredAdditionalMaterialsTable.filter {
+                it.key in normalType.materials
+            }.forEach {
+                materials[it.key] = ((materials[it.key] ?: 0.0) + (it.value * (1 - BONUS_RATE)) * tryCnt)
+            }
+
+            recipe.notFilteredRequiredAdditionalMaterialsTable.filter {
+                it.key in bonusType.materials
+            }.forEach {
+                materials[it.key] = ((materials[it.key] ?: 0.0) + (it.value * BONUS_RATE) * tryCnt)
+            }
+
+            return materials.mapValues { it.value.toInt() }
         }
     }
 }
