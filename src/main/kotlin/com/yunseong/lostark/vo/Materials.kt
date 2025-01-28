@@ -28,13 +28,15 @@ enum class Materials {
 
         fun fromString(value: String): Materials? {
             return runCatching {
-                 when(value) {
+                when (value) {
                     "명예의 파편 주머니(소)" -> {
                         명예의_파편
                     }
+
                     "운명의 파편 주머니(소)" -> {
                         운명의_파편
                     }
+
                     else -> {
                         Materials.valueOf(value.replace(" ", "_").replace(":", ""))
                     }

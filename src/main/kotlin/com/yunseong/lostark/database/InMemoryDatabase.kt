@@ -17,8 +17,9 @@ object InMemoryDatabase {
         refreshPrice(4)
     }
 
-    operator fun <T> get(key: Any, clazz: Class<T>): T {
-        return clazz.cast(database[key]!!)
+    @Suppress("UNCHECKED_CAST")
+    fun <T> get(key: Any): T {
+        return database[key] as T
     }
 
     operator fun <T: Any> set(key: String, value: T) {
