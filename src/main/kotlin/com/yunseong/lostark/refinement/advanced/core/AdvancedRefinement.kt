@@ -1,5 +1,6 @@
 package com.yunseong.lostark.refinement.advanced.core
 
+import com.yunseong.lostark.database.InMemoryDatabase
 import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.가호
 import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.가호장인
 import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.가호축복
@@ -97,19 +98,19 @@ sealed class AdvancedRefinement {
                 
                 fun getExpectedPricePerTry(recipe: AdvancedRefinementRecipe, normalType: Type, bonusType: Type): Double {
                         val basePrice = recipe.requiredMaterialsTable().map {
-                                it.key.price * it.value
+                                InMemoryDatabase[it.key] * it.value
                         }.sum()
                         
                         val normalPrice = basePrice * (1 - FREE_RATE) + recipe.requiredAdditionalMaterialsTable().filter {
                                 it.key in normalType.materials
                         }.map {
-                                it.key.price * it.value
+                                InMemoryDatabase[it.key] * it.value
                         }.sum()
                         
                         val bonusPrice = basePrice + recipe.requiredAdditionalMaterialsTable().filter {
                                 it.key in bonusType.materials
                         }.map {
-                                it.key.price * it.value
+                                InMemoryDatabase[it.key] * it.value
                         }.sum()
                         
                         return normalPrice * (1 - BONUS_RATE) + bonusPrice * BONUS_RATE
