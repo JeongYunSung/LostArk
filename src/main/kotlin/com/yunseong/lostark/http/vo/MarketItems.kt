@@ -13,7 +13,7 @@ sealed class MarketItems {
         val sort: String? = null,
         val categoryCode: Int? = null,
         val characterClass: String? = null,
-        val itemTier: Int = 4,
+        val itemTier: Int? = null,
         val itemGrade: String? = null,
         val itemName: String? = null,
         val pageNo: Int = 0,
