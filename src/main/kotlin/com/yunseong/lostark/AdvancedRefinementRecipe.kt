@@ -33,7 +33,6 @@ class Tier3Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
                         명예의_파편 to 17000,
                         골드 to 2500
                 )
-                
                 else -> mapOf()
         }
         
@@ -50,7 +49,6 @@ class Tier3Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
                         태양의_가호 to 6,
                         장인의_야금술2 to 1
                 )
-
                 else -> mapOf()
         }
 }
@@ -87,7 +85,6 @@ class Tier3Armor(level: Level,  filterList: List<Materials> = emptyList()): Adva
                         태양의_가호 to 6,
                         장인의_재봉술2 to 1
                 )
-
                 else -> mapOf()
         }
 }
@@ -108,7 +105,20 @@ class Tier4Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
                         운명의_파편 to 10000,
                         골드 to 2500
                 )
-                else -> mapOf()
+                L30 -> mapOf(
+                        운명의_파괴석 to 1200,
+                        운명의_돌파석 to 25,
+                        아비도스_융화_재료 to 28,
+                        운명의_파편 to 11500,
+                        골드 to 3000
+                )
+                L40 -> mapOf(
+                        운명의_파괴석 to 1400,
+                        운명의_돌파석 to 32,
+                        아비도스_융화_재료 to 30,
+                        운명의_파편 to 13000,
+                        골드 to 4000
+                )
         }
 
         override val internalRequiredAdditionalMaterialsTable = when(level) {
@@ -120,8 +130,12 @@ class Tier4Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
                         용암의_숨결 to 18,
                         장인의_야금술2 to 1
                 )
-
-                else -> mapOf()
+                L30 -> mapOf(
+                        용암의_숨결 to 24
+                )
+                L40 -> mapOf(
+                        용암의_숨결 to 30
+                )
         }
 }
 
@@ -141,7 +155,20 @@ class Tier4Armor(level: Level,  filterList: List<Materials> = emptyList()): Adva
                         운명의_파편 to 6000,
                         골드 to 1800
                 )
-                else -> mapOf()
+                L30 -> mapOf(
+                        운명의_수호석 to 1000,
+                        운명의_돌파석 to 18,
+                        아비도스_융화_재료 to 17,
+                        운명의_파편 to 7000,
+                        골드 to 2000
+                )
+                L40 -> mapOf(
+                        운명의_수호석 to 1200,
+                        운명의_돌파석 to 23,
+                        아비도스_융화_재료 to 19,
+                        운명의_파편 to 8000,
+                        골드 to 2400
+                )
         }
 
         override val internalRequiredAdditionalMaterialsTable = when(level) {
@@ -153,7 +180,11 @@ class Tier4Armor(level: Level,  filterList: List<Materials> = emptyList()): Adva
                         빙하의_숨결 to 18,
                         장인의_재봉술2 to 1
                 )
-
-                else -> mapOf()
+                L30 -> mapOf(
+                        빙하의_숨결 to 24,
+                )
+                L40 -> mapOf(
+                        빙하의_숨결 to 30
+                )
         }
 }
