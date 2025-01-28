@@ -5,7 +5,7 @@ import com.yunseong.lostark.vo.Materials
 import com.yunseong.lostark.vo.Materials.*
 import com.yunseong.lostark.refinement.advanced.vo.Level
 
-sealed class AdvancedRefinementRecipe(val level: Level, private val filterList: List<Materials> = emptyList()) {
+sealed class AdvancedRefinementRecipe(val level: Level, private val filterList: MutableList<Materials> = mutableListOf()) {
     fun requiredMaterialsTable(): Map<Materials, Int> {
         return notFilteredRequiredMaterialsTable.filterKeys { !filterList.contains(it) }
     }
@@ -14,12 +14,16 @@ sealed class AdvancedRefinementRecipe(val level: Level, private val filterList: 
         return notFilteredRequiredAdditionalMaterialsTable.filterKeys { !filterList.contains(it) }
     }
 
+    fun addFilter(material: Materials) {
+        filterList.add(material)
+    }
+
     abstract val notFilteredRequiredMaterialsTable: Map<Materials, Int>
 
     abstract val notFilteredRequiredAdditionalMaterialsTable: Map<Materials, Int>
 }
 
-class Tier3Weapon(level: Level, filterList: List<Materials> = emptyList()) :
+class Tier3Weapon(level: Level, filterList: MutableList<Materials> = mutableListOf()) :
     AdvancedRefinementRecipe(level, filterList) {
     override val notFilteredRequiredMaterialsTable = when (level) {
         L10 -> mapOf(
@@ -60,7 +64,7 @@ class Tier3Weapon(level: Level, filterList: List<Materials> = emptyList()) :
     }
 }
 
-class Tier3Armor(level: Level, filterList: List<Materials> = emptyList()) :
+class Tier3Armor(level: Level, filterList: MutableList<Materials> = mutableListOf()) :
     AdvancedRefinementRecipe(level, filterList) {
     override val notFilteredRequiredMaterialsTable = when (level) {
         L10 -> mapOf(
@@ -101,7 +105,7 @@ class Tier3Armor(level: Level, filterList: List<Materials> = emptyList()) :
     }
 }
 
-class Tier4Weapon(level: Level, filterList: List<Materials> = emptyList()) :
+class Tier4Weapon(level: Level, filterList: MutableList<Materials> = mutableListOf()) :
     AdvancedRefinementRecipe(level, filterList) {
     override val notFilteredRequiredMaterialsTable = when (level) {
         L10 -> mapOf(
@@ -158,7 +162,7 @@ class Tier4Weapon(level: Level, filterList: List<Materials> = emptyList()) :
     }
 }
 
-class Tier4Armor(level: Level, filterList: List<Materials> = emptyList()) :
+class Tier4Armor(level: Level, filterList: MutableList<Materials> = mutableListOf()) :
     AdvancedRefinementRecipe(level, filterList) {
     override val notFilteredRequiredMaterialsTable = when (level) {
         L10 -> mapOf(
