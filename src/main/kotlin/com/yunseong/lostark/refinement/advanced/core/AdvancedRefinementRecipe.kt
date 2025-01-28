@@ -25,7 +25,7 @@ class Tier3Weapon(level: Level, filterList: List<Materials> = emptyList()) :
         L10 -> mapOf(
             정제된_파괴강석 to 1000,
             찬란한_명예의_돌파석 to 28,
-            최상급_오레하_융화제 to 30,
+            최상급_오레하_융화_재료 to 30,
             명예의_파편 to 9000,
             골드 to 1125
         )
@@ -33,7 +33,7 @@ class Tier3Weapon(level: Level, filterList: List<Materials> = emptyList()) :
         L20 -> mapOf(
             정제된_파괴강석 to 1600,
             찬란한_명예의_돌파석 to 36,
-            최상급_오레하_융화제 to 33,
+            최상급_오레하_융화_재료 to 33,
             명예의_파편 to 17000,
             골드 to 2500
         )
@@ -66,7 +66,7 @@ class Tier3Armor(level: Level, filterList: List<Materials> = emptyList()) :
         L10 -> mapOf(
             정제된_수호강석 to 950,
             찬란한_명예의_돌파석 to 22,
-            최상급_오레하_융화제 to 18,
+            최상급_오레하_융화_재료 to 18,
             명예의_파편 to 5500,
             골드 to 950
         )
@@ -74,7 +74,7 @@ class Tier3Armor(level: Level, filterList: List<Materials> = emptyList()) :
         L20 -> mapOf(
             정제된_수호강석 to 1300,
             찬란한_명예의_돌파석 to 28,
-            최상급_오레하_융화제 to 20,
+            최상급_오레하_융화_재료 to 20,
             명예의_파편 to 11000,
             골드 to 1800
         )

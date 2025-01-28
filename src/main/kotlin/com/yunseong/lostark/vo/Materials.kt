@@ -4,7 +4,7 @@ enum class Materials {
 
     명예의_파편,
     운명의_파편,
-    최상급_오레하_융화제,
+    최상급_오레하_융화_재료,
     아비도스_융화_재료,
     찬란한_명예의_돌파석,
     운명의_돌파석,
@@ -38,7 +38,7 @@ enum class Materials {
                     }
 
                     else -> {
-                        Materials.valueOf(value.replace(" ", "_").replace(":", ""))
+                        Materials.valueOf(value.replace(" : ", "").replace(" ", "_"))
                     }
                 }
             }.getOrNull()

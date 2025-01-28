@@ -48,6 +48,9 @@ object InMemoryDatabase {
                     "명예의 파편 주머니(소)", "운명의 파편 주머니(소)" -> {
                         database[Materials.fromString(it.name)!!] = String.format("%.4f", it.avgPrice / 1000).toDouble()
                     }
+                    "정제된 수호강석", "정제된 파괴강석", "운명의 수호석", "운명의 파괴석" -> {
+                        database[Materials.fromString(it.name)!!] = it.avgPrice * 0.1
+                    }
                     else -> {
                         database[Materials.fromString(it.name)!!] = it.avgPrice
                     }
