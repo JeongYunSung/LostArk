@@ -27,7 +27,7 @@ object InMemoryDatabase {
     }
 
     private fun refreshPrice(tier: Int) {
-        var pageNo = 0
+        var pageNo = 1
         var repeat: Boolean
 
         do {
@@ -39,7 +39,7 @@ object InMemoryDatabase {
                     pageNo = pageNo
                 )
             )
-            repeat = (response.totalCount / response.pageSize) > pageNo++
+            repeat = (response.totalCount / response.pageSize) >= pageNo++
 
             response.items.filter {
                 Materials.fromString(it.name) != null
