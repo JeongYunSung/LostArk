@@ -1,6 +1,5 @@
 package com.yunseong.lostark.database
 
-import com.yunseong.lostark.Main
 import com.yunseong.lostark.http.core.LostArkService
 import com.yunseong.lostark.http.vo.MarketItems
 import com.yunseong.lostark.vo.Materials
@@ -9,7 +8,9 @@ object InMemoryDatabase {
 
     private val database = mutableMapOf<Any, Any>()
 
-    init {
+    const val API_KEY = "API_KEY"
+
+    fun pollingMarketPrice() {
         database[Materials.골드] = 1.0
         database[Materials.Blank] = 0.0
 
@@ -33,7 +34,7 @@ object InMemoryDatabase {
         do {
             val response = LostArkService.getItemList(
                 MarketItems.Request(
-                    bearerToken = Main.API_KEY,
+                    bearerToken = get(API_KEY),
                     categoryCode = 50000,
                     itemTier = tier,
                     pageNo = pageNo
