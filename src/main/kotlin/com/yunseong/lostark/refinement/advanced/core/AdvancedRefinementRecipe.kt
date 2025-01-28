@@ -43,13 +43,13 @@ class Tier3Weapon(level: Level, filterList: List<Materials> = emptyList()): Adva
                         태양의_축복 to 24,
                         태양의_은총 to 12,
                         태양의_가호 to 4,
-                        장인의_야금술1 to 1
+                        장인의_야금술1단계 to 1
                 )
                 L20 -> mapOf(
                         태양의_축복 to 36,
                         태양의_은총 to 18,
                         태양의_가호 to 6,
-                        장인의_야금술2 to 1
+                        장인의_야금술2단계 to 1
                 )
                 else -> mapOf()
         }
@@ -79,13 +79,13 @@ class Tier3Armor(level: Level, filterList: List<Materials> = emptyList()): Advan
                         태양의_축복 to 24,
                         태양의_은총 to 12,
                         태양의_가호 to 4,
-                        장인의_재봉술1 to 1
+                        장인의_재봉술1단계 to 1
                 )
                 L20 -> mapOf(
                         태양의_축복 to 36,
                         태양의_은총 to 18,
                         태양의_가호 to 6,
-                        장인의_재봉술2 to 1
+                        장인의_재봉술2단계 to 1
                 )
                 else -> mapOf()
         }
@@ -126,11 +126,11 @@ class Tier4Weapon(level: Level, filterList: List<Materials> = emptyList()): Adva
         override val internalRequiredAdditionalMaterialsTable = when(level) {
                 L10 -> mapOf(
                         용암의_숨결 to 12,
-                        장인의_야금술1 to 1
+                        장인의_야금술1단계 to 1
                 )
                 L20 -> mapOf(
                         용암의_숨결 to 18,
-                        장인의_야금술2 to 1
+                        장인의_야금술2단계 to 1
                 )
                 L30 -> mapOf(
                         용암의_숨결 to 24
@@ -176,11 +176,11 @@ class Tier4Armor(level: Level, filterList: List<Materials> = emptyList()): Advan
         override val internalRequiredAdditionalMaterialsTable = when(level) {
                 L10 -> mapOf(
                         빙하의_숨결 to 12,
-                        장인의_재봉술1 to 1
+                        장인의_재봉술1단계 to 1
                 )
                 L20 -> mapOf(
                         빙하의_숨결 to 18,
-                        장인의_재봉술2 to 1
+                        장인의_재봉술2단계 to 1
                 )
                 L30 -> mapOf(
                         빙하의_숨결 to 24,

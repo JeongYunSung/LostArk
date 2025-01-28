@@ -20,10 +20,10 @@ import com.yunseong.lostark.vo.Materials
 import com.yunseong.lostark.vo.Materials.Blank
 import com.yunseong.lostark.vo.Materials.빙하의_숨결
 import com.yunseong.lostark.vo.Materials.용암의_숨결
-import com.yunseong.lostark.vo.Materials.장인의_야금술1
-import com.yunseong.lostark.vo.Materials.장인의_야금술2
-import com.yunseong.lostark.vo.Materials.장인의_재봉술1
-import com.yunseong.lostark.vo.Materials.장인의_재봉술2
+import com.yunseong.lostark.vo.Materials.장인의_야금술1단계
+import com.yunseong.lostark.vo.Materials.장인의_야금술2단계
+import com.yunseong.lostark.vo.Materials.장인의_재봉술1단계
+import com.yunseong.lostark.vo.Materials.장인의_재봉술2단계
 import com.yunseong.lostark.vo.Materials.태양의_가호
 import com.yunseong.lostark.vo.Materials.태양의_은총
 import com.yunseong.lostark.vo.Materials.태양의_축복
@@ -33,7 +33,7 @@ sealed class AdvancedRefinement {
         
         enum class Type(val materials: List<Materials>) {
                 노숨(listOf(Blank)),
-                노숨장인(listOf(장인의_야금술1, 장인의_야금술2, 장인의_재봉술1, 장인의_재봉술2)),
+                노숨장인(listOf(장인의_야금술1단계, 장인의_야금술2단계, 장인의_재봉술1단계, 장인의_재봉술2단계)),
                 가호(listOf(태양의_가호)),
                 가호장인(가호.materials + 노숨장인.materials),
                 가호축복(listOf(태양의_가호, 태양의_축복)),
@@ -98,19 +98,19 @@ sealed class AdvancedRefinement {
                 
                 fun getExpectedPricePerTry(recipe: AdvancedRefinementRecipe, normalType: Type, bonusType: Type): Double {
                         val basePrice = recipe.requiredMaterialsTable().map {
-                                InMemoryDatabase[it.key] * it.value
+                                InMemoryDatabase[it.key, Double::class.java] * it.value
                         }.sum()
                         
                         val normalPrice = basePrice * (1 - FREE_RATE) + recipe.requiredAdditionalMaterialsTable().filter {
                                 it.key in normalType.materials
                         }.map {
-                                InMemoryDatabase[it.key] * it.value
+                                InMemoryDatabase[it.key, Double::class.java] * it.value
                         }.sum()
                         
                         val bonusPrice = basePrice + recipe.requiredAdditionalMaterialsTable().filter {
                                 it.key in bonusType.materials
                         }.map {
-                                InMemoryDatabase[it.key] * it.value
+                                InMemoryDatabase[it.key, Double::class.java] * it.value
                         }.sum()
                         
                         return normalPrice * (1 - BONUS_RATE) + bonusPrice * BONUS_RATE
