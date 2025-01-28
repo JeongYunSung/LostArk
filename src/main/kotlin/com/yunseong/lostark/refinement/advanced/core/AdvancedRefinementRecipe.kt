@@ -1,7 +1,9 @@
-package com.yunseong.lostark
+package com.yunseong.lostark.refinement.advanced.core
 
-import com.yunseong.lostark.Level.*
-import com.yunseong.lostark.Materials.*
+import com.yunseong.lostark.refinement.advanced.vo.Level.*
+import com.yunseong.lostark.vo.Materials
+import com.yunseong.lostark.vo.Materials.*
+import com.yunseong.lostark.refinement.advanced.vo.Level
 
 sealed class AdvancedRefinementRecipe(val level: Level, private val filterList: List<Materials> = emptyList()) {
         fun requiredMaterialsTable(): Map<Materials, Int> {
@@ -17,7 +19,7 @@ sealed class AdvancedRefinementRecipe(val level: Level, private val filterList: 
         abstract val internalRequiredAdditionalMaterialsTable: Map<Materials, Int>
 }
 
-class Tier3Weapon(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
+class Tier3Weapon(level: Level, filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
         override val internalRequiredMaterialsTable = when (level) {
                 L10 -> mapOf(
                         정제된_파괴강석 to 1000,
@@ -53,7 +55,7 @@ class Tier3Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
         }
 }
 
-class Tier3Armor(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
+class Tier3Armor(level: Level, filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
         override val internalRequiredMaterialsTable = when(level) {
                 L10 -> mapOf(
                         정제된_수호강석 to 950,
@@ -89,7 +91,7 @@ class Tier3Armor(level: Level,  filterList: List<Materials> = emptyList()): Adva
         }
 }
 
-class Tier4Weapon(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
+class Tier4Weapon(level: Level, filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
         override val internalRequiredMaterialsTable = when(level) {
                 L10 -> mapOf(
                         운명의_파괴석 to 600,
@@ -139,7 +141,7 @@ class Tier4Weapon(level: Level,  filterList: List<Materials> = emptyList()): Adv
         }
 }
 
-class Tier4Armor(level: Level,  filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
+class Tier4Armor(level: Level, filterList: List<Materials> = emptyList()): AdvancedRefinementRecipe(level, filterList) {
         override val internalRequiredMaterialsTable = when(level) {
                 L10 -> mapOf(
                         운명의_수호석 to 500,

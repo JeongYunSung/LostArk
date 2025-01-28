@@ -1,4 +1,4 @@
-package com.yunseong.lostark
+package com.yunseong.lostark.refinement.advanced.vo
 
 enum class Ancestors {
         

@@ -1,30 +1,32 @@
-package com.yunseong.lostark
+package com.yunseong.lostark.refinement.advanced.core
 
-import com.yunseong.lostark.AdvancedRefinement.Type.가호
-import com.yunseong.lostark.AdvancedRefinement.Type.가호장인
-import com.yunseong.lostark.AdvancedRefinement.Type.가호축복
-import com.yunseong.lostark.AdvancedRefinement.Type.가호축복장인
-import com.yunseong.lostark.AdvancedRefinement.Type.노숨
-import com.yunseong.lostark.AdvancedRefinement.Type.노숨장인
-import com.yunseong.lostark.AdvancedRefinement.Type.풀숨
-import com.yunseong.lostark.AdvancedRefinement.Type.풀숨장인
-import com.yunseong.lostark.Ancestors.갈라투르의망치
-import com.yunseong.lostark.Ancestors.겔라르의칼
-import com.yunseong.lostark.Ancestors.나베르의송곳
-import com.yunseong.lostark.Ancestors.에베르의끌
-import com.yunseong.lostark.Ancestors.쿠훔바르의모루
-import com.yunseong.lostark.Ancestors.테메르의정
-import com.yunseong.lostark.Level.*
-import com.yunseong.lostark.Materials.Blank
-import com.yunseong.lostark.Materials.빙하의_숨결
-import com.yunseong.lostark.Materials.용암의_숨결
-import com.yunseong.lostark.Materials.장인의_야금술1
-import com.yunseong.lostark.Materials.장인의_야금술2
-import com.yunseong.lostark.Materials.장인의_재봉술1
-import com.yunseong.lostark.Materials.장인의_재봉술2
-import com.yunseong.lostark.Materials.태양의_가호
-import com.yunseong.lostark.Materials.태양의_은총
-import com.yunseong.lostark.Materials.태양의_축복
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.가호
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.가호장인
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.가호축복
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.가호축복장인
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.노숨
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.노숨장인
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.풀숨
+import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.Type.풀숨장인
+import com.yunseong.lostark.refinement.advanced.vo.Ancestors.갈라투르의망치
+import com.yunseong.lostark.refinement.advanced.vo.Ancestors.겔라르의칼
+import com.yunseong.lostark.refinement.advanced.vo.Ancestors.나베르의송곳
+import com.yunseong.lostark.refinement.advanced.vo.Ancestors.에베르의끌
+import com.yunseong.lostark.refinement.advanced.vo.Ancestors.쿠훔바르의모루
+import com.yunseong.lostark.refinement.advanced.vo.Ancestors.테메르의정
+import com.yunseong.lostark.refinement.advanced.vo.Level.*
+import com.yunseong.lostark.vo.Materials
+import com.yunseong.lostark.vo.Materials.Blank
+import com.yunseong.lostark.vo.Materials.빙하의_숨결
+import com.yunseong.lostark.vo.Materials.용암의_숨결
+import com.yunseong.lostark.vo.Materials.장인의_야금술1
+import com.yunseong.lostark.vo.Materials.장인의_야금술2
+import com.yunseong.lostark.vo.Materials.장인의_재봉술1
+import com.yunseong.lostark.vo.Materials.장인의_재봉술2
+import com.yunseong.lostark.vo.Materials.태양의_가호
+import com.yunseong.lostark.vo.Materials.태양의_은총
+import com.yunseong.lostark.vo.Materials.태양의_축복
+import com.yunseong.lostark.refinement.advanced.vo.Level
 
 sealed class AdvancedRefinement {
         
@@ -41,7 +43,7 @@ sealed class AdvancedRefinement {
         
         data object Tier3 : AdvancedRefinement() {
                 
-                val successTable = mapOf(
+                private val successTable = mapOf(
                         노숨 to arrayOf(0.8, 0.15, 0.05),
                         노숨장인 to arrayOf(0.3, 0.45, 0.25),
                         가호 to arrayOf(0.7, 0.2, 0.1),
@@ -59,7 +61,7 @@ sealed class AdvancedRefinement {
         
         data object Tier4 : AdvancedRefinement() {
                 
-                val successTable = mapOf(
+                private val successTable = mapOf(
                         노숨 to arrayOf(0.8, 0.15, 0.05),
                         노숨장인 to arrayOf(0.3, 0.45, 0.25),
                         풀숨 to arrayOf(0.5, 0.3, 0.2),

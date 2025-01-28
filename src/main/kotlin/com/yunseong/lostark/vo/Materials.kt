@@ -1,4 +1,4 @@
-package com.yunseong.lostark
+package com.yunseong.lostark.vo
 
 enum class Materials(
         val price: Double
