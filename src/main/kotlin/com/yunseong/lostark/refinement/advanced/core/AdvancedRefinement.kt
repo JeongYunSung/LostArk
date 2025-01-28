@@ -43,63 +43,60 @@ sealed class AdvancedRefinement {
         풀숨장인(풀숨.materials + 노숨장인.materials)
     }
 
-    data object Tier3 : AdvancedRefinement() {
-
-        private val successTable = mapOf(
-            노숨 to arrayOf(0.8, 0.15, 0.05),
-            노숨장인 to arrayOf(0.3, 0.45, 0.25),
-            가호 to arrayOf(0.7, 0.2, 0.1),
-            가호장인 to arrayOf(0.2, 0.5, 0.3),
-            가호축복 to arrayOf(0.6, 0.25, 0.15),
-            가호축복장인 to arrayOf(0.1, 0.55, 0.35),
-            풀숨 to arrayOf(0.5, 0.3, 0.2),
-            풀숨장인 to arrayOf(0.0, 0.6, 0.4),
-        )
-
-        override fun getAverageNormalExp(type: Type): Double {
-            return successTable[type]!![0] * 10 + successTable[type]!![1] * 20 + successTable[type]!![2] * 40
-        }
-    }
-
-    data object Tier4 : AdvancedRefinement() {
-
-        private val successTable = mapOf(
-            노숨 to arrayOf(0.8, 0.15, 0.05),
-            노숨장인 to arrayOf(0.3, 0.45, 0.25),
-            풀숨 to arrayOf(0.5, 0.3, 0.2),
-            풀숨장인 to arrayOf(0.0, 0.6, 0.4),
-        )
-
-        override fun getAverageNormalExp(type: Type): Double {
-            return successTable[type]!![0] * 10 + successTable[type]!![1] * 20 + successTable[type]!![2] * 40
-        }
-    }
-
-    fun getAverageBonusExp(level: Level, type: Type): Double {
-        val base = getAverageNormalExp(type)
-
-        return when (level) {
-            L10, L20 -> 테메르의정[base] * 0.35 + 쿠훔바르의모루[base] * 0.15 + 겔라르의칼[base] * 0.35 + 갈라투르의망치[base] * 0.15
-            else -> 테메르의정[base] * 0.25 + 쿠훔바르의모루[base] * 0.125 + 겔라르의칼[base] * 0.25 + 갈라투르의망치[base] * 0.125 + 나베르의송곳[base] * 0.125 + 에베르의끌[base] * 0.125
-        }
-    }
-
-    abstract fun getAverageNormalExp(type: Type): Double
-
     companion object {
 
         private const val FREE_RATE = (1 / 6.0) * 0.35
         private const val BONUS_RATE = 0.16106
         private const val TOTAL_EXP = 1000
 
+        val successTable = mapOf(
+            노숨 to arrayOf(0.8, 0.15, 0.05),
+            가호 to arrayOf(0.7, 0.2, 0.1),
+            가호축복 to arrayOf(0.6, 0.25, 0.15),
+            풀숨 to arrayOf(0.5, 0.3, 0.2),
+        )
+
+        val successJangInTable = mutableMapOf(
+            노숨장인 to arrayOf(0.3, 0.45, 0.25),
+            가호장인 to arrayOf(0.2, 0.5, 0.3),
+            가호축복장인 to arrayOf(0.1, 0.55, 0.35),
+            풀숨장인 to arrayOf(0.0, 0.6, 0.4),
+        )
+
+        init {
+            successJangInTable.putAll(successTable)
+        }
+
+        fun getAverageNormalExp(level: Level, type: Type): Double {
+            return when (level) {
+                L10, L20 -> {
+                    successJangInTable[type]!![0] * 10 + successJangInTable[type]!![1] * 20 + successJangInTable[type]!![2] * 40
+                }
+                else -> {
+                    successTable[type]?.let {
+                        return it[0] * 10 + it[1] * 20 + it[2] * 40
+                    }
+                    throw IllegalArgumentException("해당 레벨에서는 지원하지 않는 재련 방식입니다.")
+                }
+            }
+        }
+
+        fun getAverageBonusExp(level: Level, type: Type): Double {
+            val base = getAverageNormalExp(level, type)
+
+            return when (level) {
+                L10, L20 -> 테메르의정[base] * 0.35 + 쿠훔바르의모루[base] * 0.15 + 겔라르의칼[base] * 0.35 + 갈라투르의망치[base] * 0.15
+                else -> 테메르의정[base] * 0.25 + 쿠훔바르의모루[base] * 0.125 + 겔라르의칼[base] * 0.25 + 갈라투르의망치[base] * 0.125 + 나베르의송곳[base] * 0.125 + 에베르의끌[base] * 0.125
+            }
+        }
+
         fun getExpectedTryCount(
-            advancedRefinement: AdvancedRefinement,
             level: Level,
             normalType: Type,
             bonusType: Type
         ): Double {
             val exp =
-                advancedRefinement.getAverageNormalExp(normalType) * (1 - BONUS_RATE) + advancedRefinement.getAverageBonusExp(
+                getAverageNormalExp(level, normalType) * (1 - BONUS_RATE) + getAverageBonusExp(
                     level,
                     bonusType
                 ) * BONUS_RATE
