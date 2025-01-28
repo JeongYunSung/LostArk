@@ -133,10 +133,10 @@ class Tier4Weapon(level: Level, filterList: List<Materials> = emptyList()): Adva
                         장인의_야금술2단계 to 1
                 )
                 L30 -> mapOf(
-                        용암의_숨결 to 24
+                        용암의_숨결 to 20
                 )
                 L40 -> mapOf(
-                        용암의_숨결 to 30
+                        용암의_숨결 to 24
                 )
         }
 }
@@ -183,10 +183,10 @@ class Tier4Armor(level: Level, filterList: List<Materials> = emptyList()): Advan
                         장인의_재봉술2단계 to 1
                 )
                 L30 -> mapOf(
-                        빙하의_숨결 to 24,
+                        빙하의_숨결 to 20
                 )
                 L40 -> mapOf(
-                        빙하의_숨결 to 30
+                        빙하의_숨결 to 24
                 )
         }
 }
