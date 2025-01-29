@@ -4,6 +4,8 @@ import com.yunseong.lostark.database.InMemoryDatabase
 import com.yunseong.lostark.refinement.advanced.core.*
 import com.yunseong.lostark.refinement.advanced.core.AdvancedRefinement.*
 import com.yunseong.lostark.refinement.advanced.vo.Level
+import com.yunseong.lostark.refinement.advanced.vo.Level.L10
+import com.yunseong.lostark.refinement.advanced.vo.Level.L20
 import com.yunseong.lostark.vo.Materials
 
 object Menu {
@@ -109,11 +111,21 @@ object Menu {
                     "1.명예의 파편 2.최상급 오레하 융화 재료 3.찬란한 명예의 돌파석 4.정제된 수호강석 \n5.태양의 축복 6.태양의 은총 7.태양의 가호 8.장인의 재봉술1단계 0.종료"
                 }
                 is Tier4Weapon -> {
-                    "1.운명의 파편 2.아비도스 융화 재료 3.운명의 돌파석 4.운명의 파괴석 5.용암의 숨결 6.장인의 야금술1단계 0.종료"
+                    "1.운명의 파편 2.아비도스 융화 재료 3.운명의 돌파석 4.운명의 파괴석 5.용암의 숨결" +
+                        when (recipe.level) {
+                            L10 -> " 6.장인의 야금술1단계 "
+                            L20 -> " 6.장인의 야금술2단계 "
+                            else -> " "
+                        } + "0.종료"
                 }
 
                 is Tier4Armor -> {
-                    "1.운명의 파편 2.아비도스 융화 재료 3.운명의 돌파석 4.운명의 수호석 5.빙하의 숨결 6.장인의 재봉술1단계 0.종료"
+                    "1.운명의 파편 2.아비도스 융화 재료 3.운명의 돌파석 4.운명의 수호석 5.빙하의 숨결" +
+                        when (recipe.level) {
+                            L10 -> " 6.장인의 재봉술1단계 "
+                            L20 -> " 6.장인의 재봉술2단계 "
+                            else -> " "
+                        } + "0.종료"
                 }
             }
 
@@ -142,11 +154,18 @@ object Menu {
     private fun selectBreathList(recipe: AdvancedRefinementRecipe): List<Type> {
         return when (recipe) {
             is Tier3Weapon, is Tier3Armor -> {
-                newTier3Breath
+                if (recipe.level == Level.L30 || recipe.level == Level.L40) {
+                    originTier3Breath
+                } else {
+                    newTier3Breath
+                }
             }
-
             is Tier4Weapon, is Tier4Armor -> {
-                newTier4Breath
+                if (recipe.level == Level.L30 || recipe.level == Level.L40) {
+                    originTier4Breath
+                } else {
+                    newTier4Breath
+                }
             }
         }
     }
