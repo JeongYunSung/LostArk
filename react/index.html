@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<script src="https://cdn.jsdelivr.net/npm/preact@10.17.1/dist/preact.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@preact/signals-core@1.5.0/dist/signals-core.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@preact/signals@1.2.1/dist/signals.min.js"></script>
+		<title>로스트아크</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script>
+			const { h, render } = window.preact;
+
+			const App = () => {
+				return h('div', null, 'Preact');
+			}
+
+			render(h(App), document.getElementById('root'));
+		</script>
+	</body>
+</html>
