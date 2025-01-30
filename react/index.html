@@ -5,15 +5,51 @@
 		<script src="https://cdn.jsdelivr.net/npm/preact@10.17.1/dist/preact.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@preact/signals-core@1.5.0/dist/signals-core.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@preact/signals@1.2.1/dist/signals.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+		<script src="data.js"></script>
 		<title>로스트아크</title>
 	</head>
 	<body>
 		<div id="root"></div>
+			<canvas id="myChart" width="300" height="100"></canvas>
 		<script>
 			const { h, render } = window.preact;
+			const { Chart } = window;
 
 			const App = () => {
-				return h('div', null, 'Preact');
+				const ctx = document.getElementById('myChart').getContext('2d');
+
+				let lables = [];
+				let ratios = [];
+				let golds = [];
+
+				data.forEach((item) => {
+					let str = item.split(',');
+					lables.push(`${str[0]}(${str[1]})`);
+					ratios.push(Number(str[2]));
+					golds.push(Number(str[3]) * 0.001);
+				});
+
+				new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: lables,
+						datasets: [
+							{
+								label: '비율(100:x)',
+								data: ratios,
+								borderColor: ['rgba(255, 99, 132, 1)'],
+							},
+							{
+								label: '골드(1000만)',
+								data: golds,
+								borderColor: ['rgba(54, 162, 235, 1)'],
+							}
+						]
+					}
+				});
+
+				return h('div', null, '골드 시세 추이 그래프');
 			}
 
 			render(h(App), document.getElementById('root'));
