@@ -6,18 +6,20 @@
 		<script src="https://cdn.jsdelivr.net/npm/@preact/signals-core@1.5.0/dist/signals-core.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@preact/signals@1.2.1/dist/signals.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0/dist/chartjs-plugin-zoom.min.js"></script>
 		<script src="data.js"></script>
 		<title>로스트아크</title>
 	</head>
 	<body>
 		<div id="root"></div>
-			<canvas id="myChart" width="300" height="100"></canvas>
+			<canvas id="chart"></canvas>
 		<script>
 			const { h, render } = window.preact;
 			const { Chart } = window;
 
 			const App = () => {
-				const ctx = document.getElementById('myChart').getContext('2d');
+				const ctx = document.getElementById('chart').getContext('2d');
 
 				let lables = [];
 				let ratios = [];
@@ -46,6 +48,23 @@
 								borderColor: ['rgba(54, 162, 235, 1)'],
 							}
 						]
+					},
+					options: {
+						plugins: {
+							zoom: {
+								zoom: {
+									wheel: {
+										enabled: true,
+									},
+									mode: 'x',
+								},
+								pan: {
+									enabled: true,
+									mode: "x",
+									speed: 0.5
+								}
+							}
+						}
 					}
 				});
 
