@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<script src="https://cdn.jsdelivr.net/npm/preact@10.17.1/dist/preact.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/preact/10.25.4/hooks.umd.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@preact/signals-core@1.5.0/dist/signals-core.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@preact/signals@1.2.1/dist/signals.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
@@ -16,59 +17,67 @@
 			<canvas id="chart"></canvas>
 		<script>
 			const { h, render } = window.preact;
+			const { useEffect, useRef } = window.preactHooks;
 			const { Chart } = window;
 
 			const App = () => {
-				const ctx = document.getElementById('chart').getContext('2d');
+				const chartRef = useRef(null);
 
 				let lables = [];
 				let ratios = [];
 				let golds = [];
 
-				data.forEach((item) => {
-					let str = item.split(',');
-					lables.push(`${str[0]}(${str[1]})`);
-					ratios.push(Number(str[2]));
-					golds.push(Number(str[3]) * 0.001);
-				});
+				useEffect(() => {
+					const ctx = chartRef.current.getContext('2d');
 
-				new Chart(ctx, {
-					type: 'line',
-					data: {
-						labels: lables,
-						datasets: [
-							{
-								label: '비율(100:x)',
-								data: ratios,
-								borderColor: ['rgba(255, 99, 132, 1)'],
-							},
-							{
-								label: '골드(1000만)',
-								data: golds,
-								borderColor: ['rgba(54, 162, 235, 1)'],
-							}
-						]
-					},
-					options: {
-						plugins: {
-							zoom: {
-								zoom: {
-									wheel: {
-										enabled: true,
-									},
-									mode: 'x',
+					data.forEach((item) => {
+						let str = item.split(',');
+						lables.push(`${str[0]}(${str[1]})`);
+						ratios.push(Number(str[2]));
+						golds.push(Number(str[3]) * 0.001);
+					});
+
+					new Chart(ctx, {
+						type: 'line',
+						data: {
+							labels: lables,
+							datasets: [
+								{
+									label: '비율(100:x)',
+									data: ratios,
+									borderColor: ['rgba(255, 99, 132, 1)'],
 								},
-								pan: {
-									enabled: true,
-									mode: "x",
-									speed: 0.5
+								{
+									label: '골드(1000만)',
+									data: golds,
+									borderColor: ['rgba(54, 162, 235, 1)'],
+								}
+							]
+						},
+						options: {
+							plugins: {
+								zoom: {
+									zoom: {
+										wheel: {
+											enabled: true,
+										},
+										mode: 'x',
+									},
+									pan: {
+										enabled: true,
+										mode: "x",
+										speed: 0.5
+									}
 								}
 							}
 						}
-					}
-				});
+					});
+				}, []);
 
-				return h('div', null, '골드 시세 추이 그래프');
+				return h('div', null, [
+					'골드 시세 추이 그래프',
+					h('canvas', { id: 'chart', ref: chartRef })
+				]);
 			}
 
 			render(h(App), document.getElementById('root'));
